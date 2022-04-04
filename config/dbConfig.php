@@ -1,7 +1,7 @@
 <?php
 $dbConfig = [
     'host' => "localhost:8889",
-    'dbname' => "blog",
+    'dbname' => "db_api_restaurant",
     'user' => "root",
     'password' => "root"
 ];
