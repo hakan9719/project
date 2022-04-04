@@ -18,7 +18,9 @@ commande id
 plat id
 
 Tables
-id tion id
+id
+taille
+reservation id
 
 Réservation
 id
