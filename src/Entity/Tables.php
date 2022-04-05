@@ -7,7 +7,7 @@ class Tables extends DefaultEntity {
 
   private int $id;
   private int $taille;
-  private int $reservation_id;
+  private int|null $reservation_id;
 
   public function JsonSerialize(): array
   {

@@ -8,13 +8,15 @@ class LienCommande extends DefaultEntity {
   private int $id;
   private int $plat;
   private int $commande;
+  private int $quantite;
 
   public function JsonSerialize(): array
   {
     return [
       'id' => $this->id,
       'plat' => $this->plat,
-      'commande' => $this->commande
+      'commande' => $this->commande,
+      'quantite' => $this->quantite
     ];
   }
 
@@ -62,6 +64,26 @@ class LienCommande extends DefaultEntity {
   public function setCommande($commande)
   {
     $this->commande = $commande;
+
+    return $this;
+  }
+
+  /**
+   * Get the value of quantite
+   */ 
+  public function getQuantite()
+  {
+    return $this->quantite;
+  }
+
+  /**
+   * Set the value of quantite
+   *
+   * @return  self
+   */ 
+  public function setQuantite($quantite)
+  {
+    $this->quantite = $quantite;
 
     return $this;
   }
