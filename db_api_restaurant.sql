@@ -3,10 +3,11 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 05, 2022 at 02:51 PM
+-- Generation Time: Apr 05, 2022 at 03:24 PM
 -- Server version: 5.7.33
 -- PHP Version: 8.0.11
 
+SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -20,6 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `db_api_restaurant`
 --
+CREATE DATABASE IF NOT EXISTS `db_api_restaurant` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `db_api_restaurant`;
 
 -- --------------------------------------------------------
 
@@ -27,6 +30,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `commande`
 --
 
+DROP TABLE IF EXISTS `commande`;
 CREATE TABLE `commande` (
   `id` int(11) NOT NULL,
   `nom` varchar(255) NOT NULL,
@@ -51,11 +55,20 @@ INSERT INTO `commande` (`id`, `nom`, `prenom`, `telephone`, `mail`, `carte`, `st
 -- Table structure for table `liencommande`
 --
 
+DROP TABLE IF EXISTS `liencommande`;
 CREATE TABLE `liencommande` (
   `id` int(11) NOT NULL,
   `plat` int(11) NOT NULL,
-  `commande` int(11) NOT NULL
+  `commande` int(11) NOT NULL,
+  `quantite` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `liencommande`
+--
+
+INSERT INTO `liencommande` (`id`, `plat`, `commande`, `quantite`) VALUES
+(1, 1, 3, 3);
 
 -- --------------------------------------------------------
 
@@ -63,11 +76,20 @@ CREATE TABLE `liencommande` (
 -- Table structure for table `plat`
 --
 
+DROP TABLE IF EXISTS `plat`;
 CREATE TABLE `plat` (
   `id` int(11) NOT NULL,
   `nom` varchar(255) NOT NULL,
-  `prix` int(11) NOT NULL
+  `prix` int(11) NOT NULL,
+  `image` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `plat`
+--
+
+INSERT INTO `plat` (`id`, `nom`, `prix`, `image`) VALUES
+(1, 'poulet', 10, NULL);
 
 -- --------------------------------------------------------
 
@@ -75,6 +97,7 @@ CREATE TABLE `plat` (
 -- Table structure for table `reservation`
 --
 
+DROP TABLE IF EXISTS `reservation`;
 CREATE TABLE `reservation` (
   `id` int(11) NOT NULL,
   `nom` varchar(255) NOT NULL,
@@ -91,11 +114,23 @@ CREATE TABLE `reservation` (
 -- Table structure for table `tables`
 --
 
+DROP TABLE IF EXISTS `tables`;
 CREATE TABLE `tables` (
   `id` int(11) NOT NULL,
   `taille` int(11) NOT NULL,
   `reservation_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tables`
+--
+
+INSERT INTO `tables` (`id`, `taille`, `reservation_id`) VALUES
+(1, 4, NULL),
+(2, 4, NULL),
+(3, 4, NULL),
+(4, 4, NULL),
+(5, 2, NULL);
 
 --
 -- Indexes for dumped tables
@@ -148,13 +183,13 @@ ALTER TABLE `commande`
 -- AUTO_INCREMENT for table `liencommande`
 --
 ALTER TABLE `liencommande`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `plat`
 --
 ALTER TABLE `plat`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `reservation`
@@ -166,7 +201,7 @@ ALTER TABLE `reservation`
 -- AUTO_INCREMENT for table `tables`
 --
 ALTER TABLE `tables`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
@@ -184,6 +219,7 @@ ALTER TABLE `liencommande`
 --
 ALTER TABLE `tables`
   ADD CONSTRAINT `tables_ibfk_1` FOREIGN KEY (`reservation_id`) REFERENCES `reservation` (`id`);
+SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
