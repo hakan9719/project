@@ -41,7 +41,7 @@ class Database {
      * Permet d'utiliser la connexion à la BDD
      *
      * @return \PDO|false
-     */
+     */ 
     public function getPdo(): \PDO|false
     {
         return $this->pdo;
@@ -64,6 +64,7 @@ class Database {
             // On associe ainsi les restrictions liées aux propriétés de la class.
             return $query->fetch();
         } else {
+            
             return $query->fetchAll();
         }
     }

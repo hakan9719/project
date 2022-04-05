@@ -1,15 +1,16 @@
 {
-    "name": "hakan/project",
-    "autoload": {
-        "psr-4": {
-            "Hakan\\Project\\": "src/"
-        }
-    },
-    "authors": [
-        {
-            "name": "Hakan",
-            "email": "hakan9719@gmail.com"
-        }
-    ],
-    "require": {}
+  "name": "hakan/project",
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/",
+      "Core\\": "Core/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Hakan",
+      "email": "hakan9719@gmail.com"
+    }
+  ],
+  "require": {}
 }
