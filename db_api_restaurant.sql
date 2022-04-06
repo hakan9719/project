@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 06, 2022 at 02:23 PM
+-- Generation Time: Apr 06, 2022 at 03:17 PM
 -- Server version: 5.7.33
 -- PHP Version: 8.0.11
 
@@ -46,8 +46,7 @@ CREATE TABLE `commande` (
 --
 
 INSERT INTO `commande` (`id`, `nom`, `prenom`, `telephone`, `mail`, `carte`, `statut`) VALUES
-(1, 'hello', 'Jeff', 'qssdqsdqsd', 'azeaze@aze', 'aqzsedrf', 0),
-(3, 'aze', 'rty', 'qsdfgh', 'aze@qsd', '321321', 1);
+(1, 'hello', 'Jeff', 'qssdqsdqsd', 'azeaze@aze', 'aqzsedrf', 0);
 
 -- --------------------------------------------------------
 
@@ -62,14 +61,6 @@ CREATE TABLE `liencommande` (
   `commande` int(11) NOT NULL,
   `quantite` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `liencommande`
---
-
-INSERT INTO `liencommande` (`id`, `plat`, `commande`, `quantite`) VALUES
-(1, 1, 3, 3),
-(2, 2, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -115,7 +106,6 @@ CREATE TABLE `reservation` (
 --
 
 INSERT INTO `reservation` (`id`, `nom`, `prenom`, `telephone`, `mail`, `carte`, `statut`) VALUES
-(1, 'hello', 'world', '321', 'aze@qsd', '654654', 0),
 (2, 'good', 'night', '321', 'aze@qsd', '654654', 1);
 
 -- --------------------------------------------------------
@@ -138,8 +128,8 @@ CREATE TABLE `tables` (
 INSERT INTO `tables` (`id`, `taille`, `reservation_id`) VALUES
 (1, 4, NULL),
 (2, 4, NULL),
-(3, 4, 1),
-(4, 4, 1),
+(3, 4, NULL),
+(4, 4, NULL),
 (5, 2, 2);
 
 -- --------------------------------------------------------
@@ -255,14 +245,14 @@ ALTER TABLE `user`
 -- Constraints for table `liencommande`
 --
 ALTER TABLE `liencommande`
-  ADD CONSTRAINT `liencommande_ibfk_1` FOREIGN KEY (`commande`) REFERENCES `commande` (`id`),
-  ADD CONSTRAINT `liencommande_ibfk_2` FOREIGN KEY (`plat`) REFERENCES `plat` (`id`);
+  ADD CONSTRAINT `liencommande_ibfk_1` FOREIGN KEY (`commande`) REFERENCES `commande` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `liencommande_ibfk_2` FOREIGN KEY (`plat`) REFERENCES `plat` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tables`
 --
 ALTER TABLE `tables`
-  ADD CONSTRAINT `tables_ibfk_1` FOREIGN KEY (`reservation_id`) REFERENCES `reservation` (`id`);
+  ADD CONSTRAINT `tables_ibfk_1` FOREIGN KEY (`reservation_id`) REFERENCES `reservation` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
 
