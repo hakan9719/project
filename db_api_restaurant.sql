@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 05, 2022 at 03:24 PM
+-- Generation Time: Apr 06, 2022 at 02:23 PM
 -- Server version: 5.7.33
 -- PHP Version: 8.0.11
 
@@ -68,7 +68,8 @@ CREATE TABLE `liencommande` (
 --
 
 INSERT INTO `liencommande` (`id`, `plat`, `commande`, `quantite`) VALUES
-(1, 1, 3, 3);
+(1, 1, 3, 3),
+(2, 2, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -89,7 +90,8 @@ CREATE TABLE `plat` (
 --
 
 INSERT INTO `plat` (`id`, `nom`, `prix`, `image`) VALUES
-(1, 'poulet', 10, NULL);
+(1, 'poulet', 10, NULL),
+(2, 'riz', 1, 'azeaze');
 
 -- --------------------------------------------------------
 
@@ -105,8 +107,16 @@ CREATE TABLE `reservation` (
   `telephone` varchar(255) NOT NULL,
   `mail` varchar(255) NOT NULL,
   `carte` varchar(255) NOT NULL,
-  `statut` tinyint(1) NOT NULL
+  `statut` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `reservation`
+--
+
+INSERT INTO `reservation` (`id`, `nom`, `prenom`, `telephone`, `mail`, `carte`, `statut`) VALUES
+(1, 'hello', 'world', '321', 'aze@qsd', '654654', 0),
+(2, 'good', 'night', '321', 'aze@qsd', '654654', 1);
 
 -- --------------------------------------------------------
 
@@ -128,9 +138,31 @@ CREATE TABLE `tables` (
 INSERT INTO `tables` (`id`, `taille`, `reservation_id`) VALUES
 (1, 4, NULL),
 (2, 4, NULL),
-(3, 4, NULL),
-(4, 4, NULL),
-(5, 2, NULL);
+(3, 4, 1),
+(4, 4, 1),
+(5, 2, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
+--
+
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`id`, `username`, `password`) VALUES
+(1, 'Jeff', '$2y$10$kG1kw37sNlEZB5gD7bTaceCay5/V3FS5LoTScWs5TthE4D1uzuQRa'),
+(3, 'Jeffqsd', '$2y$10$LBGl1NxWQMlZTmpmby8IYOlYqv9tKqVAOzkRa8m.E4bdRrTB6EV5O'),
+(4, 'Jeffqsdaze', '$2y$10$NMLvj7wlV50q.12h/2XW2uF/8wM/FLv05clKgZDl0QLImlS5yWDZy');
 
 --
 -- Indexes for dumped tables
@@ -170,6 +202,12 @@ ALTER TABLE `tables`
   ADD KEY `reservation_id` (`reservation_id`);
 
 --
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -183,25 +221,31 @@ ALTER TABLE `commande`
 -- AUTO_INCREMENT for table `liencommande`
 --
 ALTER TABLE `liencommande`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `plat`
 --
 ALTER TABLE `plat`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `reservation`
 --
 ALTER TABLE `reservation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tables`
 --
 ALTER TABLE `tables`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
