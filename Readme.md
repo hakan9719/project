@@ -1,48 +1,49 @@
-Plat
-id
-nom
-prix
+###### Plat
 
-Commande
-id
-nom
-prénom
-téléphone
-mail
-carte bancaire
-statut en préparation, prête, récupérée
+- id
+- nom
+- prix
 
-Lien commande
-id
-commande id
-plat id
+###### Commande
 
-Tables
-id
-taille
-reservation id
+- id
+- nom
+- prénom
+- téléphone
+- mail
+- carte bancaire
+- statut:
+  - 0 en préparation
+  - 1 prête
+  - 2 récupérée
+- Lien commande
+- id
+- commande id
+- plat id
 
-Réservation
-id
-nom
-prénom
-téléphone
-mail
-carte bancaire
-statut réservé, libéré
+###### Tables
 
-Back office:
+- id
+- taille
+- reservation id
+
+###### Réservation
+
+- id
+- nom
+- prénom
+- téléphone
+- mail
+- carte bancaire
+- statut
+  - 0: réservée
+  - 1: liberée
+
+##### Back office:
+
 CRUD des tables
-api/v1/table
-api/v1/table/save
-api/v1/table/update/:id
-api/v1/table/delete/:id
 CRUD des plats
-
-    voir les commandes
-    	back-office/commande
-    changer le statut des commandes
-    	back-office/commande/:id	changer le statut
-
-    voir les réservations
-    changer le statut des réservations (et automatiquement des tables)
+voir les commandes
+changer le statut des commandes
+voir les réservations
+changer le statut des réservations (et automatiquement des tables)

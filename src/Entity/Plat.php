@@ -8,13 +8,15 @@ class Plat extends DefaultEntity {
   private int $id;
   private string $nom;
   private int $prix;
+  private string|null $image;
 
   public function JsonSerialize(): array
   {
     return [
       'id' => $this->id,
       'nom' => $this->nom,
-      'prix' => $this->prix
+      'prix' => $this->prix,
+      'image' => $this->image
     ];
   }
 

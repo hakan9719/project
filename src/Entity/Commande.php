@@ -10,7 +10,7 @@ class Commande extends DefaultEntity {
   private string $prenom;
   private string $telephone;
   private string $mail;
-  private string $carte;
+  private string|null $carte;
   private int $statut;
 
   public function JsonSerialize(): array
