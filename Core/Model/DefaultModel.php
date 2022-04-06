@@ -59,7 +59,7 @@ class DefaultModel extends Database{
         return $this->getData($statement, $this->entity);
     }
 
-    public function findOneBy(array $criteria = [], array $order = []): object
+    public function findOneBy(array $criteria = [], array $order = []): object|bool
     {
         $statement = "SELECT * FROM $this->table ";
         if (!empty($criteria)) {

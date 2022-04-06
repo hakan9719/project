@@ -55,7 +55,7 @@ class Database {
      * @param boolean $one
      * @return array<object>|object
      */
-    public function getData (string $statement, string $className, bool $one = false): array|object
+    public function getData (string $statement, string $className, bool $one = false): array|object|bool
     {
         $query = $this->pdo->query($statement);
         $query->setFetchMode(\PDO::FETCH_CLASS, "App\Entity\\$className");

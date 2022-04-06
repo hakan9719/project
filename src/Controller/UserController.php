@@ -28,10 +28,9 @@ class UserController extends DefaultController {
     if ( !(isset($data['username']) && isset($data['password'])) ) {
       throw new \Exception("Invalid login data", 404);
     }
-    var_dump("Before");
+    
     $user = $this->model->findOneBy(["username" => $data['username']]);
-    var_dump($user);
-    if ($user) {
+    if (!$user) {
       throw new \Exception("Username incorrect or does not exist", 404);
     }
     

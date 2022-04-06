@@ -51,7 +51,7 @@ final class Routeur {
                         if (is_numeric($param)) {
                             $controller->single($param);
                         } elseif (method_exists($controller, $param)) {
-                            $controller->$param;
+                            $controller->$param();
                         } else {
                             throw new \Exception("Invalid method in GET", 404);
                         }
