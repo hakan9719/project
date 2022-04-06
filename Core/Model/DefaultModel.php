@@ -25,7 +25,7 @@ class DefaultModel extends Database{
      * @param integer $id
      * @return object
      */
-    public function find(int $id): object
+    public function find(int $id): object|bool
     {
         return $this->getData("SELECT * FROM $this->table WHERE id = $id", $this->entity, true);
     }
