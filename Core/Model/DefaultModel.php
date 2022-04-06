@@ -43,7 +43,7 @@ class DefaultModel extends Database{
         if (!empty($criteria)) {
             $statement .= "WHERE ";
             foreach ($criteria as $key => $value) {
-                $statement .= "$key = $value AND ";
+                $statement .= "$key = '$value' AND ";
             }
         }
 
@@ -55,8 +55,29 @@ class DefaultModel extends Database{
             }
             $statement = substr($statement, 0, -2);
         }
-
+        
         return $this->getData($statement, $this->entity);
+    }
+
+    public function findOneBy(array $criteria = [], array $order = []): object
+    {
+        $statement = "SELECT * FROM $this->table ";
+        if (!empty($criteria)) {
+            $statement .= "WHERE ";
+            foreach ($criteria as $key => $value) {
+                $statement .= "$key = '$value' AND ";
+            }
+        }
+
+        $statement = substr($statement, 0, -4);
+        if (!empty($order)) {
+            $statement .= "ORDER BY ";
+            foreach ($order as $key => $value) {
+                $statement .= "$key $value, ";
+            }
+            $statement = substr($statement, 0, -2);
+        }
+        return $this->getData($statement, $this->entity, true);
     }
 
     /**

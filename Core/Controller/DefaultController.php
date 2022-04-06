@@ -13,4 +13,7 @@ class DefaultController{
 
   use JsonTrait;
     
+  public function index() {
+    throw new \Exception("Invalid request method", 404);
+  }
 }

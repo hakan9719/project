@@ -6,7 +6,6 @@ use Core\Controller\DefaultController;
 
 class TablesController extends DefaultController {
 
-  private $model;
   public function __construct () {
     $this->model = new TablesModel;
   } 

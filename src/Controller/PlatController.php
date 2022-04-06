@@ -6,7 +6,6 @@ use Core\Controller\DefaultController;
 
 class PlatController extends DefaultController {
 
-  private $model;
   public function __construct () {
     $this->model = new PlatModel;
   } 

@@ -6,7 +6,6 @@ use Core\Controller\DefaultController;
 
 class ReservationController extends DefaultController {
 
-  private $model;
   public function __construct () {
     $this->model = new ReservationModel;
   } 
