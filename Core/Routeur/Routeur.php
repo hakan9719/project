@@ -2,6 +2,7 @@
 namespace Core\Routeur;
 
 use App\Security\ApiKey;
+use Core\Controller\DefaultController;
 use Core\Trait\JsonTrait;
 
 final class Routeur {
@@ -43,6 +44,10 @@ final class Routeur {
             $param = null;
             if (isset($path[4])) {
                 $param = $path[4];
+                $defaultController = new DefaultController();
+                if (!is_numeric($param) && method_exists($defaultController, $param)) {
+                    throw new \Exception("Default method cannot be called mannualy", 404);
+                }
             }
             
             switch ($_SERVER['REQUEST_METHOD']) {

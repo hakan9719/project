@@ -11,9 +11,25 @@ use Core\Trait\JsonTrait;
  */
 class DefaultController{
 
-  use JsonTrait;
-    
-  public function index() {
-    throw new \Exception("Invalid request method", 404);
-  }
+    use JsonTrait;
+
+    public function index() {
+        throw new \Exception("Invalid request method", 404);
+    }
+
+    public function single(int $id) {
+        throw new \Exception("Invalid request method", 404);
+    }
+
+    public function save(array $data) {
+        throw new \Exception("Invalid request method", 404);
+    }
+
+    public function update(int $id, array $data) {
+        throw new \Exception("Invalid request method", 404);
+    }
+
+    public function delete(int $id) {
+        throw new \Exception("Invalid request delete method", 404);
+    }
 }
