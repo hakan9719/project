@@ -1,10 +1,12 @@
-###### Plat
+### BDD
+
+##### Plat
 
 - id
 - nom
 - prix
 
-###### Commande
+##### Commande
 
 - id
 - nom
@@ -21,13 +23,13 @@
 - commande id
 - plat id
 
-###### Tables
+##### Tables
 
 - id
 - taille
 - reservation id
 
-###### Réservation
+##### Réservation
 
 - id
 - nom
@@ -39,11 +41,6 @@
   - 0: réservée
   - 1: liberée
 
-##### Back office:
+### Back office:
 
-CRUD des tables
-CRUD des plats
-voir les commandes
-changer le statut des commandes
-voir les réservations
-changer le statut des réservations (et automatiquement des tables)
+- CRUD
