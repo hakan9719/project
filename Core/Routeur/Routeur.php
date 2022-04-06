@@ -1,8 +1,8 @@
 <?php
 namespace Core\Routeur;
 
+use App\Security\ApiKey;
 use Core\Trait\JsonTrait;
-use Exception;
 
 final class Routeur {
 
@@ -11,6 +11,27 @@ final class Routeur {
     public static function Routes (){
         try {
             $path = explode("/", $_SERVER['PATH_INFO']);
+
+            if (isset($path[1])) {
+                if ($path[1] !== 'v0') {
+                    throw new \Exception("Invalid version", 404);
+                }
+            } else {
+                throw new \Exception("Invalid URI", 404);
+            }
+
+            if (isset($path[2])) {
+                if (!(new ApiKey)->verifyApiKey($path[2])) {
+                    throw new \Exception("Invalid API Key", 401);
+                }
+            } else {
+                throw new \Exception("API Key missing", 401);
+            }
+
+            if (!isset($path[3])) {
+                throw new \Exception("Controller missing", 404);
+            }
+
             $controllerName = "App\Controller\\". ucfirst($path[3]). "Controller";
 
             if (class_exists($controllerName)) {

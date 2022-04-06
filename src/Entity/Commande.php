@@ -1,6 +1,7 @@
 <?php
 namespace App\Entity;
 
+use App\Model\LienCommandeModel;
 use Core\Entity\DefaultEntity;
 
 class Commande extends DefaultEntity {
@@ -13,6 +14,13 @@ class Commande extends DefaultEntity {
   private string|null $carte;
   private int $statut;
 
+  private array $plats;
+
+  public function __construct()
+  {
+    $this->plats = (new LienCommandeModel)->findAll($this->id);
+  }
+
   public function JsonSerialize(): array
   {
     return [
@@ -22,7 +30,8 @@ class Commande extends DefaultEntity {
       'telephone' => $this->telephone,
       'mail' => $this->mail,
       'carte' => $this->carte,
-      'statut' => $this->statut
+      'statut' => $this->statut,
+      'plats' => $this->plats
     ];
   }
 

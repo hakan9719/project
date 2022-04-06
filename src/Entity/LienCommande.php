@@ -1,6 +1,7 @@
 <?php
 namespace App\Entity;
 
+use App\Model\PlatModel;
 use Core\Entity\DefaultEntity;
 
 class LienCommande extends DefaultEntity {
@@ -14,10 +15,17 @@ class LienCommande extends DefaultEntity {
   {
     return [
       'id' => $this->id,
-      'plat' => $this->plat,
       'commande' => $this->commande,
-      'quantite' => $this->quantite
+      'plat' => $this->plat,
+      'quantite' => $this->quantite,
+      'nomPlat' => $this->getNomPlat()
     ];
+  }
+
+
+  public function getNomPlat(): string
+  {
+    return (new PlatModel)->find($this->plat)->getNom();
   }
 
   /**
