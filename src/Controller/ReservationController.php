@@ -38,13 +38,11 @@ class ReservationController extends DefaultController {
 
     $lastId = $this->model->save($reservation);
 
-    $tableReserved = $data['tables'];
-
+    $tableReserved = json_decode($data['tables'], true, 512, JSON_THROW_ON_ERROR);
     if (!empty($tableReserved)) {
         foreach ($tableReserved as $table) {
-            $tableDecoded = json_decode($table, true, 512, JSON_THROW_ON_ERROR);
-            $tableDecoded['reservation_id'] = $lastId;
-            $this->tableModel->update($tableDecoded['id'], $tableDecoded);
+            $table['reservation_id'] = $lastId;
+            $this->tableModel->update($table['id'], $table);
         }
     }
 
