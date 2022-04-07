@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Model\UserModel;
+use App\Security\JWTSecurity;
 use Core\Controller\DefaultController;
 
 class UserController extends DefaultController {
@@ -35,7 +36,8 @@ class UserController extends DefaultController {
     }
     
     if (password_verify($data['password'], $user->getPassword())) {
-      var_dump("Hello!");
+      $token = (new JWTSecurity)->generateToken();
+      self::jsonResponse($token, 200);
     }
   }
 }
