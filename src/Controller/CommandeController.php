@@ -41,8 +41,10 @@ class CommandeController extends DefaultController {
   }
 
   public function order (array $data) {
-    // $test2 = json_decode($data['plats'][0]);
-    // var_dump($test2);
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+      throw new \Exception("Invalid request method", 404);
+    }
+
     $commande = [
       "nom" => $data['nom'],
       "prenom" => $data['prenom'],

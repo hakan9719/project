@@ -11,7 +11,11 @@ class UserController extends DefaultController {
     $this->model = new UserModel;
   }
   
-  public function save (array $data) {
+  public function signup (array $data) {
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+      throw new \Exception("Invalid request method", 404);
+    }
+
     if (!empty($this->model->findBy(["username" => $data['username']]))) {
       throw new \Exception("User with this username already exists.", 404);
     }
