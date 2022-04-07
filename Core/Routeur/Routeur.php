@@ -58,7 +58,7 @@ final class Routeur {
                             if ((new JWTSecurity)->verifyToken()) {
                                 $controller->single($param);
                             } else {
-                                throw new \Exception("Invalid token", 404);
+                                throw new \Exception("Token is missing, invalid or expired");
                             }
                         } elseif (method_exists($controller, $param)) {
                             $controller->$param();
@@ -69,7 +69,7 @@ final class Routeur {
                         if ((new JWTSecurity)->verifyToken()) {
                             $controller->index();
                         } else {
-                            throw new \Exception("Invalid token", 404);
+                            throw new \Exception("Token is missing, invalid or expired");
                         }
                     }
                     break;
@@ -79,7 +79,7 @@ final class Routeur {
                         if ((new JWTSecurity)->verifyToken()) {
                             $controller->delete($param);
                         } else {
-                            throw new \Exception("Invalid token", 404);
+                            throw new \Exception("Token is missing, invalid or expired");
                         }
                     } else {
                         throw new \Exception("Invalid parameter in DELETE", 404);
@@ -98,7 +98,7 @@ final class Routeur {
                             if ((new JWTSecurity)->verifyToken()) {
                                 $controller->save($_POST);
                             } else {
-                                throw new \Exception("Invalid token", 404);
+                                throw new \Exception("Token is missing, invalid or expired");
                             }
                         }
                     } else {
@@ -114,7 +114,7 @@ final class Routeur {
                             if ((new JWTSecurity)->verifyToken()) {
                                 $controller->update($param, $_PUT);
                             } else {
-                                throw new \Exception("Invalid token", 404);
+                                throw new \Exception("Token is missing, invalid or expired");
                             }
                         } else {
                             if (method_exists($controller, $param)) {

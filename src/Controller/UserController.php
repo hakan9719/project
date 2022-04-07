@@ -17,7 +17,7 @@ class UserController extends DefaultController {
     }
 
     if ( !( (new JWTSecurity)->verifyToken() ) ){
-      throw new \Exception("Token is missing or invalid");
+      throw new \Exception("Token is missing, invalid or expired");
     }
 
     if (!empty($this->model->findBy(["username" => $data['username']]))) {
