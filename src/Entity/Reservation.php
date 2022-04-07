@@ -1,6 +1,7 @@
 <?php
 namespace App\Entity;
 
+use App\Model\TablesModel;
 use Core\Entity\DefaultEntity;
 
 class Reservation extends DefaultEntity {
@@ -22,8 +23,13 @@ class Reservation extends DefaultEntity {
       'telephone' => $this->telephone,
       'mail' => $this->mail,
       'carte' => $this->carte,
-      'statut' => $this->statut
+      'statut' => $this->statut,
+      'tables' => $this->getTables()
     ];
+  }
+
+  public function getTables() {
+    return (new TablesModel)->findBy(["reservation_id" => $this->id]);
   }
 
   /**

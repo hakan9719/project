@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Model\UserModel;
+use App\Security\JWTSecurity;
 use Core\Controller\DefaultController;
 
 class UserController extends DefaultController {
@@ -10,7 +11,15 @@ class UserController extends DefaultController {
     $this->model = new UserModel;
   }
   
-  public function save (array $data) {
+  public function signup (array $data) {
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+      throw new \Exception("Invalid request method", 404);
+    }
+
+    if ( !( (new JWTSecurity)->verifyToken() ) ){
+      throw new \Exception("Token is missing or invalid");
+    }
+
     if (!empty($this->model->findBy(["username" => $data['username']]))) {
       throw new \Exception("User with this username already exists.", 404);
     }
@@ -35,7 +44,8 @@ class UserController extends DefaultController {
     }
     
     if (password_verify($data['password'], $user->getPassword())) {
-      var_dump("Hello!");
+      $token = (new JWTSecurity)->generateToken();
+      self::jsonResponse($token, 200);
     }
   }
 }

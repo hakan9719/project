@@ -15,7 +15,6 @@ class DefaultModel extends Database{
      */
     public function findAll(): array
     {
-        // var_dump($this->getData("SELECT * FROM $this->table", $this->entity));
         return $this->getData("SELECT * FROM $this->table", $this->entity);
     }
 

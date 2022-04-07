@@ -2,6 +2,7 @@
 namespace Core\Routeur;
 
 use App\Security\ApiKey;
+use App\Security\JWTSecurity;
 use Core\Controller\DefaultController;
 use Core\Trait\JsonTrait;
 
@@ -29,6 +30,8 @@ final class Routeur {
                 throw new \Exception("API Key missing", 401);
             }
 
+            $token = (new JWTSecurity)->verifyToken();
+
             if (!isset($path[3])) {
                 throw new \Exception("Controller missing", 404);
             }
@@ -54,20 +57,32 @@ final class Routeur {
                 case 'GET':
                     if ($param) {
                         if (is_numeric($param)) {
-                            $controller->single($param);
+                            if ($token) {
+                                $controller->single($param);
+                            } else {
+                                throw new \Exception("Invalid token", 404);
+                            }
                         } elseif (method_exists($controller, $param)) {
                             $controller->$param();
                         } else {
                             throw new \Exception("Invalid method in GET", 404);
                         }
                     } else {
-                        $controller->index();
+                        if ($token) {
+                            $controller->index();
+                        } else {
+                            throw new \Exception("Invalid token", 404);
+                        }
                     }
                     break;
                     
                 case 'DELETE':
                     if ($param && is_numeric($param)) {
-                        $controller->delete($param);
+                        if ($token) {
+                            $controller->delete($param);
+                        } else {
+                            throw new \Exception("Invalid token", 404);
+                        }
                     } else {
                         throw new \Exception("Invalid parameter in DELETE", 404);
                     }
@@ -82,7 +97,11 @@ final class Routeur {
                                 throw new \Exception("Invalid method in POST", 404);
                             }
                         } else {
-                            $controller->save($_POST);
+                            if ($token) {
+                                $controller->save($_POST);
+                            } else {
+                                throw new \Exception("Invalid token", 404);
+                            }
                         }
                     } else {
                         throw new \Exception("POST empty", 404);
@@ -94,7 +113,11 @@ final class Routeur {
                     
                     if (!empty($_PUT)) {
                         if ($param && is_numeric($param)) {
-                            $controller->update($param, $_PUT);
+                            if ($token) {
+                                $controller->update($param, $_PUT);
+                            } else {
+                                throw new \Exception("Invalid token", 404);
+                            }
                         } else {
                             if (method_exists($controller, $param)) {
                                 $controller->$param($_PUT);
