@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Model\CommandeModel;
+use App\Model\LienCommandeModel;
 use Core\Controller\DefaultController;
 
 class CommandeController extends DefaultController {
@@ -37,5 +38,27 @@ class CommandeController extends DefaultController {
   {
     $this->model->delete($id);
     self::jsonResponse("Delete OK", 200);
+  }
+
+  public function order (array $data) {
+    // $test2 = json_decode($data['plats'][0]);
+    // var_dump($test2);
+    $commande = [
+      "nom" => $data['nom'],
+      "prenom" => $data['prenom'],
+      "telephone" => $data['telephone'],
+      "mail" => $data['mail'],
+      "carte" => $data['carte']
+    ];
+    $commandeId = $this->model->save($commande);
+
+    $plats = $data['plats'];
+    foreach($plats as $key => $plat) {
+      $lienCommande = json_decode($plat, true);
+      $lienCommande['commande'] = $commandeId;
+      (new LienCommandeModel)->save($lienCommande);
+    }
+
+    self::jsonResponse($this->model->find($commandeId), 201);
   }
 }

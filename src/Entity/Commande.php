@@ -14,11 +14,8 @@ class Commande extends DefaultEntity {
   private string|null $carte;
   private int $statut;
 
-  private array $plats;
-
-  public function __construct()
-  {
-    $this->plats = (new LienCommandeModel)->findAll($this->id);
+  public function getPlats() {
+    return (new LienCommandeModel)->findBy(["commande" => $this->id]);
   }
 
   public function JsonSerialize(): array
@@ -31,7 +28,7 @@ class Commande extends DefaultEntity {
       'mail' => $this->mail,
       'carte' => $this->carte,
       'statut' => $this->statut,
-      'plats' => $this->plats
+      'plats' => $this->getPlats()
     ];
   }
 
