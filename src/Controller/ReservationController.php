@@ -2,12 +2,15 @@
 namespace App\Controller;
 
 use App\Model\ReservationModel;
+use App\Model\TablesModel;
 use Core\Controller\DefaultController;
+use JsonException;
 
 class ReservationController extends DefaultController {
 
   public function __construct () {
     $this->model = new ReservationModel;
+    $this->tableModel = new TablesModel;
   } 
 
   public function index()
@@ -20,9 +23,31 @@ class ReservationController extends DefaultController {
     self::jsonResponse($this->model->find($id), 200);
   }
 
-  public function save(array $data)
+    /**
+     * @throws JsonException
+     */
+    public function save(array $data)
   {
-    $lastId = $this->model->save($data);
+    $reservation = [
+        "nom" => $data['nom'],
+        "prenom" => $data['prenom'],
+        "mail" => $data['mail'],
+        "telephone" => $data['telephone'],
+        "carte" => $data['carte']
+    ];
+
+    $lastId = $this->model->save($reservation);
+
+    $tableReserved = $data['tables'];
+
+    if (!empty($tableReserved)) {
+        foreach ($tableReserved as $table) {
+            $tableDecoded = json_decode($table, true, 512, JSON_THROW_ON_ERROR);
+            $tableDecoded['reservation_id'] = $lastId;
+            $this->tableModel->update($tableDecoded['id'], $tableDecoded);
+        }
+    }
+
     self::jsonResponse($this->model->find($lastId), 201);
   }
 
