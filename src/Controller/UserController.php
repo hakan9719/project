@@ -16,6 +16,10 @@ class UserController extends DefaultController {
       throw new \Exception("Invalid request method", 404);
     }
 
+    if ( !( (new JWTSecurity)->verifyToken() ) ){
+      throw new \Exception("Token is missing or invalid");
+    }
+
     if (!empty($this->model->findBy(["username" => $data['username']]))) {
       throw new \Exception("User with this username already exists.", 404);
     }
