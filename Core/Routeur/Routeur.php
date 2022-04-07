@@ -58,7 +58,7 @@ final class Routeur {
                             if ((new JWTSecurity)->verifyToken()) {
                                 $controller->single($param);
                             } else {
-                                throw new \Exception("Token is missing, invalid or expired");
+                                throw new \Exception("Token is missing, invalid or expired", 404);
                             }
                         } elseif (method_exists($controller, $param)) {
                             $controller->$param();
@@ -69,7 +69,7 @@ final class Routeur {
                         if ((new JWTSecurity)->verifyToken()) {
                             $controller->index();
                         } else {
-                            throw new \Exception("Token is missing, invalid or expired");
+                            throw new \Exception("Token is missing, invalid or expired", 404);
                         }
                     }
                     break;
@@ -79,7 +79,7 @@ final class Routeur {
                         if ((new JWTSecurity)->verifyToken()) {
                             $controller->delete($param);
                         } else {
-                            throw new \Exception("Token is missing, invalid or expired");
+                            throw new \Exception("Token is missing, invalid or expired", 404);
                         }
                     } else {
                         throw new \Exception("Invalid parameter in DELETE", 404);
@@ -98,7 +98,7 @@ final class Routeur {
                             if ((new JWTSecurity)->verifyToken()) {
                                 $controller->save($_POST);
                             } else {
-                                throw new \Exception("Token is missing, invalid or expired");
+                                throw new \Exception("Token is missing, invalid or expired", 404);
                             }
                         }
                     } else {
@@ -114,7 +114,7 @@ final class Routeur {
                             if ((new JWTSecurity)->verifyToken()) {
                                 $controller->update($param, $_PUT);
                             } else {
-                                throw new \Exception("Token is missing, invalid or expired");
+                                throw new \Exception("Token is missing, invalid or expired", 404);
                             }
                         } else {
                             if (method_exists($controller, $param)) {
