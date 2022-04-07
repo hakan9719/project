@@ -54,9 +54,11 @@ class CommandeController extends DefaultController {
     ];
     $commandeId = $this->model->save($commande);
 
-    $plats = $data['plats'];
+    $plats = json_decode($data['plats'], true);
+    var_dump($plats);
     foreach($plats as $key => $plat) {
-      $lienCommande = json_decode($plat, true);
+      // $lienCommande = json_decode($plat, true);
+      $lienCommande = $plat;
       $lienCommande['commande'] = $commandeId;
       (new LienCommandeModel)->save($lienCommande);
     }
