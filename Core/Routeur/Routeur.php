@@ -30,8 +30,6 @@ final class Routeur {
                 throw new \Exception("API Key missing", 401);
             }
 
-            $token = (new JWTSecurity)->verifyToken();
-
             if (!isset($path[3])) {
                 throw new \Exception("Controller missing", 404);
             }
@@ -57,7 +55,7 @@ final class Routeur {
                 case 'GET':
                     if ($param) {
                         if (is_numeric($param)) {
-                            if ($token) {
+                            if ((new JWTSecurity)->verifyToken()) {
                                 $controller->single($param);
                             } else {
                                 throw new \Exception("Invalid token", 404);
@@ -68,7 +66,7 @@ final class Routeur {
                             throw new \Exception("Invalid method in GET", 404);
                         }
                     } else {
-                        if ($token) {
+                        if ((new JWTSecurity)->verifyToken()) {
                             $controller->index();
                         } else {
                             throw new \Exception("Invalid token", 404);
@@ -78,7 +76,7 @@ final class Routeur {
                     
                 case 'DELETE':
                     if ($param && is_numeric($param)) {
-                        if ($token) {
+                        if ((new JWTSecurity)->verifyToken()) {
                             $controller->delete($param);
                         } else {
                             throw new \Exception("Invalid token", 404);
@@ -97,7 +95,7 @@ final class Routeur {
                                 throw new \Exception("Invalid method in POST", 404);
                             }
                         } else {
-                            if ($token) {
+                            if ((new JWTSecurity)->verifyToken()) {
                                 $controller->save($_POST);
                             } else {
                                 throw new \Exception("Invalid token", 404);
@@ -113,7 +111,7 @@ final class Routeur {
                     
                     if (!empty($_PUT)) {
                         if ($param && is_numeric($param)) {
-                            if ($token) {
+                            if ((new JWTSecurity)->verifyToken()) {
                                 $controller->update($param, $_PUT);
                             } else {
                                 throw new \Exception("Invalid token", 404);
